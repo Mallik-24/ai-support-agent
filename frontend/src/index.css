@@ -1,0 +1,198 @@
+/* ─── CSS Variables: Light theme ──────────────────────────────────────────── */
+:root {
+  /* Colours */
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+  --accent-shadow: rgba(99, 102, 241, 0.35);
+  --accent-ring: rgba(99, 102, 241, 0.18);
+  --bg-base: #eef0fb;
+  --bg: rgba(255, 255, 255, 0.72);
+  --header-bg: rgba(255, 255, 255, 0.85);
+  --footer-bg: rgba(255, 255, 255, 0.85);
+  --border: rgba(200, 204, 220, 0.7);
+  --agent-bubble-bg: rgba(255, 255, 255, 0.9);
+  --agent-avatar-bg: #ede9fe;
+  --user-avatar-bg: #dbeafe;
+  --avatar-bg: #f3f4f6;
+  --chip-bg: rgba(241, 245, 249, 0.85);
+  --hover-bg: #f1f5f9;
+  --pill-bg: #f3f4f6;
+  --input-bg: rgba(255, 255, 255, 0.9);
+  --code-bg: #f1f5f9;
+  --error-bg: #fef2f2;
+  --error-text: #b91c1c;
+  --error-border: #fecaca;
+  --glass-blur: blur(18px);
+  --glass-shadow: 0 8px 32px rgba(99, 102, 241, 0.10), 0 1.5px 6px rgba(0,0,0,0.06);
+
+  /* Text */
+  --text-heading: #111827;
+  --text-body: #374151;
+  --text-muted: #9ca3af;
+  --text-placeholder: #c4c9d4;
+
+  /* Typography */
+  --sans: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --mono: ui-monospace, 'Cascadia Code', Consolas, monospace;
+  --heading: var(--sans);
+
+  font: 16px/1.5 var(--sans);
+  color-scheme: light dark;
+  color: var(--text-body);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-synthesis: none;
+}
+
+/* ─── Dark theme ──────────────────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --accent: #818cf8;
+    --accent-hover: #6366f1;
+    --accent-shadow: rgba(129, 140, 248, 0.35);
+    --accent-ring: rgba(129, 140, 248, 0.2);
+    --bg-base: #0a0d18;
+    --bg: rgba(15, 18, 30, 0.78);
+    --header-bg: rgba(18, 22, 36, 0.88);
+    --footer-bg: rgba(18, 22, 36, 0.88);
+    --border: rgba(50, 55, 80, 0.7);
+    --agent-bubble-bg: rgba(24, 28, 45, 0.92);
+    --agent-avatar-bg: #2e1f5e;
+    --user-avatar-bg: #1e3a5f;
+    --avatar-bg: #1f2335;
+    --chip-bg: rgba(28, 33, 55, 0.85);
+    --hover-bg: #1c2233;
+    --pill-bg: #1c2233;
+    --input-bg: rgba(24, 28, 45, 0.9);
+    --code-bg: #252a38;
+    --error-bg: #2d1515;
+    --error-text: #fca5a5;
+    --error-border: #7f1d1d;
+    --glass-blur: blur(18px);
+    --glass-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 1.5px 6px rgba(0,0,0,0.3);
+
+    --text-heading: #f9fafb;
+    --text-body: #d1d5db;
+    --text-muted: #6b7280;
+    --text-placeholder: #4b5563;
+  }
+}
+
+/* ─── Reset ───────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* ─── Animated gradient background ───────────────────────────────────────── */
+body {
+  overflow: hidden;
+  background: var(--bg-base);
+  position: relative;
+}
+
+/* Moving gradient orbs */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Orb 1 — top left, indigo/purple */
+body::before {
+  width: 520px;
+  height: 520px;
+  top: -120px;
+  left: -100px;
+  background: radial-gradient(circle, #818cf8 0%, #c084fc 60%, transparent 100%);
+  animation: orb-drift-1 14s ease-in-out infinite alternate;
+}
+
+/* Orb 2 — bottom right, cyan/blue */
+body::after {
+  width: 480px;
+  height: 480px;
+  bottom: -100px;
+  right: -80px;
+  background: radial-gradient(circle, #38bdf8 0%, #6366f1 60%, transparent 100%);
+  animation: orb-drift-2 17s ease-in-out infinite alternate;
+}
+
+@keyframes orb-drift-1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(40px, 30px) scale(1.05); }
+  66%  { transform: translate(-20px, 50px) scale(0.97); }
+  100% { transform: translate(30px, -20px) scale(1.03); }
+}
+
+@keyframes orb-drift-2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(-35px, -25px) scale(1.06); }
+  66%  { transform: translate(25px, -40px) scale(0.96); }
+  100% { transform: translate(-20px, 30px) scale(1.04); }
+}
+
+/* Tiny floating particles */
+body .particle {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  animation: float-up linear infinite;
+}
+
+@keyframes float-up {
+  0%   { transform: translateY(0) scale(1);   opacity: 0; }
+  10%  { opacity: 0.4; }
+  90%  { opacity: 0.15; }
+  100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+}
+
+#root {
+  height: 100svh;
+  width: 100%;
+  margin: 0;
+  border: none;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Global typography resets ────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--heading);
+  font-weight: 600;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--accent);
+}
+
+button {
+  font-family: var(--sans);
+}
+
+/* ─── Focus outline ───────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
